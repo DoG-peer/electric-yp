@@ -1,8 +1,9 @@
-gulp        = require 'gulp'
-plumber     = require 'gulp-plumber'
-electron    = require 'gulp-electron'
-coffee      = require 'gulp-coffee'
-packageJson = require './package.json'
+gulp      = require 'gulp'
+plumber   = require 'gulp-plumber'
+electron  = require 'gulp-electron'
+coffee    = require 'gulp-coffee'
+appJson   = null
+packageJson = -> appJson = appJson || require './build/package.json'
 
 gulp.task 'watch:coffee', ->
   gulp.watch './src/coffee/**', ['coffee'], ->
