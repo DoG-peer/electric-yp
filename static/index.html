@@ -4,19 +4,23 @@
   <meta charset="UTF-8">
   <title>electric-yp</title>
   <script src="renderer/main.js"></script>
+<style>
+* { font-family: Droid Sans Mono, Droid Sans Fallback; }
+</style>
+<script>
+window.onload = function() {
+  var webview = document.querySelector('webview');
+  function setFont() {
+    webview.insertCSS("* { font-family: Droid Sans Mono, Droid Sans Fallback; }");
+  }
+  webview.addEventListener('dom-ready', setFont);
+}
+</script>
 </head>
 <body style="margin:0;padding:0;height:100%;">
-  <h1 style="font-family:Droid Sans Mono, Droid Sans Fallback;">リスナー業も忙しい</h1>
+<h1> リスナー業も忙しい</h1>
 <div style="min-height:auto;height:100%;margin-bottom:0">
   <webview id="pecast" src="http://localhost:7144"></webview>
 </div>
-  <script>
-    window.onload = function(){
-      var pecast = document.getElementById("pecast");
-      pecast.addEventListener("dom-ready", function(e){
-        pecast.insertCSS("*{font-family:Droid Sans Mono, Droid Sans Fallback;}");
-      });
-    }
-  </script>
 </body>
 </html>
