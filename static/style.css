@@ -1,0 +1,20 @@
+
+html{
+  height: 100%;
+}
+
+body{
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+* {
+  font-family: Droid Sans Mono, Droid Sans Fallback;
+}
+
+.webview-container{
+  min-height:auto;
+  height:100%;
+  margin-bottom:0;
+}
