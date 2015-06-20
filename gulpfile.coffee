@@ -6,11 +6,12 @@ appJson   = null
 packageJson = -> appJson = appJson || require './build/package.json'
 
 gulp.task 'watch:coffee', ->
-  gulp.watch './src/coffee/**', ['coffee'], ->
+  gulp.watch './src/coffee/**/*.coffee', ['coffee'], ->
     gulp.src './src/coffee/**/*.coffee'
     .pipe plumber()
-    .pipe coffee()
+    .pipe coffee({bare: true})
     .pipe gulp.dest './build'
+    console.log 'build:coffee'
 
 gulp.task 'watch:static', ->
   gulp.watch './static/**', ['copy:static'], ->
@@ -21,7 +22,7 @@ gulp.task 'watch:static', ->
 gulp.task 'coffee', ->
   gulp.src './src/coffee/**/*.coffee'
   .pipe plumber()
-  .pipe coffee()
+  .pipe coffee({bare: true})
   .pipe gulp.dest './build'
 
 gulp.task 'electron', ->
@@ -31,7 +32,7 @@ gulp.task 'electron', ->
     packageJson: packageJson()
     release: './release'
     cache: './cache'
-    version: 'v0.28.1'
+    version: 'v0.28.2'
     rebuild: false
     platforms: ['win32-ia32', 'darwin-x64', 'linux-x64']
   .pipe gulp.dest ''
