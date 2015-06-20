@@ -8,7 +8,7 @@
     "url": "git://github.com/DoG-peer/electric-yp.git"
   },
   "scripts": {
-    "start": "electron ./build",
+    "start": "./node_modules/.bin/electron ./build",
     "setup": "npm i; bower i; gulp",
     "test": "echo TEST"
   },
