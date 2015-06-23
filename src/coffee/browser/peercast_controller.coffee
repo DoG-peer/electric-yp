@@ -15,7 +15,7 @@ class PeerCastController
       headers:
         'Content-length': data.length
         'x-requested-with': "XMLHttpRequest"
-    console.log options
+    #console.log options
     req = http.request options, (res) ->
       #console.log res.statusCode
       #console.log res.headers
