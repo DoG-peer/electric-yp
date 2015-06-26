@@ -2,8 +2,18 @@ gulp      = require 'gulp'
 plumber   = require 'gulp-plumber'
 electron  = require 'gulp-electron'
 coffee    = require 'gulp-coffee'
+cjsx      = require 'gulp-cjsx'
 appJson   = null
 packageJson = -> appJson = appJson || require './build/package.json'
+
+
+gulp.task 'watch:cjsx', ->
+  gulp.watch './src/coffee/**/*.cjsx', ['cjsx'], ->
+    gulp.src './src/coffee/**/*.cjsx'
+    .pipe plumber()
+    .pipe cjsx({bare: true})
+    .pipe gulp.dest './build'
+    console.log 'build:cjsx'
 
 gulp.task 'watch:coffee', ->
   gulp.watch './src/coffee/**/*.coffee', ['coffee'], ->
@@ -18,6 +28,12 @@ gulp.task 'watch:static', ->
     gulp.src './static/**'
     .pipe gulp.dest './build'
     console.log 'copy:static'
+
+gulp.task 'cjsx', ->
+  gulp.src './src/coffee/**/*.cjsx'
+  .pipe plumber()
+  .pipe cjsx({bare: true})
+  .pipe gulp.dest './build'
 
 gulp.task 'coffee', ->
   gulp.src './src/coffee/**/*.coffee'
@@ -41,6 +57,6 @@ gulp.task 'copy:static', ->
   gulp.src './static/**'
   .pipe gulp.dest './build'
 
-gulp.task 'build', ['coffee', 'copy:static']
+gulp.task 'build', ['cjsx', 'coffee', 'copy:static']
 gulp.task 'default', ['build']
 gulp.task 'release', ['electron']

@@ -1,9 +1,15 @@
 app           = require 'app'
 BrowserWindow = require 'browser-window'
 PeCaCtrl      = require './browser/peercast_controller'
+ipc           = require 'ipc'
 
-console.log PeCaCtrl.emit "getVersionInfo"
 
+ipc.on 'hoge', (e, arg) ->
+  PeCaCtrl.emitAsync "getVersionInfo"
+    .then (val) ->
+      e.sender.send 'foo', [arg + 1, JSON.parse(val).result.agentName]
+    .catch (err) ->
+      console.log err
 #require 'crash-reporter'
 #.start()
 

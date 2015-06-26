@@ -3,13 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <title>electric-yp</title>
-  <script src="renderer/main.js"></script>
+  <!--link href='http://fonts.googleapis.com/css?family=Roboto:400,300,500' rel='stylesheet' type='text/css'-->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <h1> リスナー業も忙しい</h1>
+<div id="version"></div>
+<div id="timer"></div>
+<AppBar title='Title' iconClassNameRight="muidocs-icon-navigation-expand-more"/>
 <div class="webview-container">
   <webview id="pecast" src="http://localhost:7144"></webview>
 </div>
+<!--script src="../bower_components/react/react.js"></script-->
+<script src="renderer/main.js"></script>
 </body>
 </html>
