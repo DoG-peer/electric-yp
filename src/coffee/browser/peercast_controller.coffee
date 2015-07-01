@@ -66,13 +66,22 @@ class PeerCastController
       req = http.request options, (res) ->
         res.setEncoding 'utf8'
         res.on 'data', (chunk) ->
-          resolve chunk
+          resolve JSON.parse(chunk).result
       req.on 'err', (e) ->
         reject e
-      setTimeout ->
-        req.write data
-        req.end()
-      , 2000
+      req.write data
+      req.end()
       that
+
+  # 例
+  # emitParaell ["a", "i", "u", "e", "o"]
+  # .forEach (x) ->
+  #   x.process.then ・・・
+  emitPararell: (array) ->
+    that = @
+    array.map (mes) ->
+      message: mes
+      process: that.emitAsync mes
+
 
 module.exports = new PeerCastController()
