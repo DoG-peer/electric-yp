@@ -12,7 +12,8 @@ ipc.on 'hoge', (e, arg) ->
       console.log err
 
 ipc.on 'init', (e, arg) ->
-  PeCaCtrl.emitPararell ["getVersionInfo"]
+  # TODO: きちんと書く
+  PeCaCtrl.emitPararell ["getBroadcaseHistory", "getChannelConnections", "getChannels", "getContentReaders", "getListeners", "getLogSettings", "getNewVersions", "getPlugins", "getVersionInfo", "getStatus", "getSourceStreams", "getSettings", "getYellowPageProtocols", "getYellowPages"]
     .forEach (p) ->
       p.process.then (val) ->
         e.sender.send p.message, val
