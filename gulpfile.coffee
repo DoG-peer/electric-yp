@@ -1,33 +1,17 @@
-gulp      = require 'gulp'
-plumber   = require 'gulp-plumber'
-electron  = require 'gulp-electron'
-coffee    = require 'gulp-coffee'
-cjsx      = require 'gulp-cjsx'
-appJson   = null
-packageJson = -> appJson = appJson || require './build/package.json'
+'use strict'
 
+gulp        = require 'gulp'
+$           = require('gulp-load-plugins')()
+_           = require 'lodash'
+fs          = require 'fs'
+plumber     = require 'gulp-plumber'
+coffee      = require 'gulp-coffee'
+cjsx        = require 'gulp-cjsx'
+packageJson = require './package.json'
 
-gulp.task 'watch:cjsx', ->
-  gulp.watch './src/coffee/**/*.cjsx', ['cjsx'], ->
-    gulp.src './src/coffee/**/*.cjsx'
-    .pipe plumber()
-    .pipe cjsx({bare: true})
-    .pipe gulp.dest './build'
-    console.log 'build:cjsx'
-
-gulp.task 'watch:coffee', ->
-  gulp.watch './src/coffee/**/*.coffee', ['coffee'], ->
-    gulp.src './src/coffee/**/*.coffee'
-    .pipe plumber()
-    .pipe coffee({bare: true})
-    .pipe gulp.dest './build'
-    console.log 'build:coffee'
-
-gulp.task 'watch:static', ->
-  gulp.watch './static/**', ['copy:static'], ->
-    gulp.src './static/**'
-    .pipe gulp.dest './build'
-    console.log 'copy:static'
+electron    = require('electron-connect').server.create
+  path: './build'
+packager    = require 'electron-packager'
 
 gulp.task 'cjsx', ->
   gulp.src './src/coffee/**/*.cjsx'
@@ -41,22 +25,46 @@ gulp.task 'coffee', ->
   .pipe coffee({bare: true})
   .pipe gulp.dest './build'
 
-gulp.task 'electron', ->
-  gulp.src ''
-  .pipe electron
-    src: './build'
-    packageJson: packageJson()
-    release: './release'
-    cache: './cache'
-    version: 'v0.28.2'
-    rebuild: false
-    platforms: ['win32-ia32', 'darwin-x64', 'linux-x64']
-  .pipe gulp.dest ''
-
 gulp.task 'copy:static', ->
-  gulp.src './static/**'
+  gulp.src './static/**/*'
   .pipe gulp.dest './build'
 
-gulp.task 'build', ['cjsx', 'coffee', 'copy:static']
+gulp.task 'copy:dependencies', ->
+  dependencies = []
+  for name of packageJson.dependencies
+    dependencies.push name
+  gulp.src "node_modules/{#{dependencies.join ','}}/**/*"
+    .pipe gulp.dest './build/node_modules'
+
+gulp.task 'packageJson', ['copy:dependencies'], (done) ->
+  json = _.cloneDeep(packageJson)
+  json.main = 'index.js'
+  fs.writeFile './build/package.json', JSON.stringify(json), (err) ->
+    done()
+
+gulp.task 'package', ['win32', 'darwin', 'linux'].map (platform) ->
+  taskName = "package:#{platform}"
+  gulp.task taskName, ['build'], (done) ->
+    packager
+      dir: './build'
+      name: 'ElectricYP'
+      arch: 'x64'
+      platform: platform
+      out: "./release/#{platform}"
+      version: "0.28.3"
+    , (err) ->
+      done()
+  taskName
+
+gulp.task 'serve', ['coffee', 'cjsx', 'copy:static'], () ->
+  electron.start()
+  gulp.watch ['src/coffee/**/*.coffee'], ['coffee']
+  gulp.watch ['src/coffee/**/*.cjsx'], ['cjsx']
+  gulp.watch ['static/**/*'], ['copy:static']
+  gulp.watch ['build/index.js', 'build/browser/**/*.js', 'build/renderer/index.html'], electron.restart
+  gulp.watch ['build/**/*.css', 'build/renderer/**/*.js'], electron.reload
+
+
+gulp.task 'build', ['cjsx', 'coffee', 'copy:static', 'packageJson']
 gulp.task 'default', ['build']
-gulp.task 'release', ['electron']
+gulp.task 'release', ['package']

@@ -1,8 +1,7 @@
 app           = require 'app'
 BrowserWindow = require 'browser-window'
-PeCaCtrl      = require './browser/peercast_controller'
+PeCaCtrl      = require "#{__dirname}/browser/peercast_controller"
 ipc           = require 'ipc'
-
 
 ipc.on 'hoge', (e, arg) ->
   PeCaCtrl.emitAsync "getVersionInfo"
@@ -33,6 +32,6 @@ app.on 'ready', ->
   mainWindow = new BrowserWindow
     "width":  400
     "height": 300
-  mainWindow.loadUrl "file://#{__dirname}/index.html"
+  mainWindow.loadUrl "file://#{__dirname}/renderer/index.html"
   mainWindow.on 'close', ->
     mainWindow = null

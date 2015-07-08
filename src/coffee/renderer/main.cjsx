@@ -1,8 +1,10 @@
 React = require 'react'
 ipc   = require 'ipc'
+injectTapEventPlugin = require 'react-tap-event-plugin'
+injectTapEventPlugin()
 window.React = React
 root_dom = null
-Root = require './renderer/root.js'
+Root = require "#{__dirname}/root.js"
 
 window.onload = ->
   root_dom = React.render <Root />, document.getElementById 'main'
@@ -102,4 +104,3 @@ window.onload = ->
     webview.insertCSS "*, .btn, ::-webkit-input-placeholder { font-family: Droid Sans Mono, Droid Sans Fallback;}"
 
   webview.addEventListener('dom-ready', setFont)
-
