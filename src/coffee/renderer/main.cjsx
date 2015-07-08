@@ -2,9 +2,13 @@ React = require 'react'
 ipc   = require 'ipc'
 injectTapEventPlugin = require 'react-tap-event-plugin'
 injectTapEventPlugin()
-window.React = React
+
+mui   = require 'material-ui'
+ThemeManager = new mui.Styles.ThemeManager()
+ThemeManager.contentFontFamily = "Roboto, sans-serif, Droid Sans Mon, Droid Sans Fallback"
+
 root_dom = null
-Root = require "#{__dirname}/root.js"
+Root = require "./root.js"
 
 window.onload = ->
   root_dom = React.render <Root />, document.getElementById 'main'

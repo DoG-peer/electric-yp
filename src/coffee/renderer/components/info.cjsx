@@ -1,6 +1,3 @@
-React = require 'react'
-mui   = require 'material-ui'
-
 List = mui.List
 ListItem = mui.ListItem
 

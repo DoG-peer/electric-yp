@@ -1,6 +1,6 @@
 app           = require 'app'
 BrowserWindow = require 'browser-window'
-PeCaCtrl      = require "#{__dirname}/browser/peercast_controller"
+PeCaCtrl      = require "./browser/peercast_controller"
 ipc           = require 'ipc'
 
 ipc.on 'hoge', (e, arg) ->

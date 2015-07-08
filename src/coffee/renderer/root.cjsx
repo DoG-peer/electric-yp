@@ -1,22 +1,16 @@
-React = require 'react'
-
-mui   = require 'material-ui'
-
-ThemeManager = new mui.Styles.ThemeManager()
-ThemeManager.contentFontFamily = "Roboto, sans-serif, Droid Sans Mon, Droid Sans Fallback"
 Tab = mui.Tab
 Tabs = mui.Tabs
 
-YP                      = require "#{__dirname}/components/yp.js"
-Relay                   = require "#{__dirname}/components/relay.js"
-Broadcast               = require "#{__dirname}/components/broadcast.js"
-Config                  = require "#{__dirname}/components/config.js"
-info                    = require "#{__dirname}/components/info.js"
+YP                      = require "./components/yp.js"
+Relay                   = require "./components/relay.js"
+Broadcast               = require "./components/broadcast.js"
+Config                  = require "./components/config.js"
+info                    = require "./components/info.js"
 Plugins                 = info.Plugins
 VersionInfo             = info.VersionInfo
 Status                  = info.Status
-Log                     = require "#{__dirname}/components/log.js"
-Help                    = require "#{__dirname}/components/help.js"
+Log                     = require "./components/log.js"
+Help                    = require "./components/help.js"
 
 Root = React.createClass
   getInitialState: ->
