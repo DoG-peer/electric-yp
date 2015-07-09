@@ -30,21 +30,29 @@ Root = React.createClass
       </Tab>
       <Tab label="リレー">
         <Relay
-          channels={this.state.channels || []}
-          channelConnections={this.state.channelConnections || []}
-          listeners={this.state.listeners || []}
+          channels={this.state.channels}
+          channelConnections={this.state.channelConnections}
+          listeners={this.state.listeners}
         />
       </Tab>
-      <Tab label="配信"><Broadcast /></Tab>
-      <Tab label="設定"><Config />
+      <Tab label="配信">
+        <Broadcast
+          broadcastHistory={this.state.broadcastHistory || []}
 
+        />
+      </Tab>
+      <Tab label="設定">
+        <Config settings={this.state.settings || {}} />
       </Tab>
       <Tab label="情報">
+        <h2>情報</h2>
         <VersionInfo
           versionInfo={this.state.versionInfo || {}}
           newVersions={this.state.newVersions || []}
         />
-        <Status status={this.state.status || {}} />
+        <Status
+          status={this.state.status || {}}
+        />
         <Plugins plugins ={this.state.plugins || []} />
       </Tab>
       <Tab label="ログ">

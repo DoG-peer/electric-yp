@@ -12,7 +12,7 @@ ipc.on 'hoge', (e, arg) ->
 
 ipc.on 'init', (e, arg) ->
   # TODO: きちんと書く
-  PeCaCtrl.emitPararell ["getBroadcaseHistory", "getChannelConnections", "getChannels", "getContentReaders", "getListeners", "getLogSettings", "getNewVersions", "getPlugins", "getVersionInfo", "getStatus", "getSourceStreams", "getSettings", "getYellowPageProtocols", "getYellowPages"]
+  PeCaCtrl.emitPararell ["getBroadcastHistory", "getChannelConnections", "getChannels", "getContentReaders", "getListeners", "getLogSettings", "getNewVersions", "getPlugins", "getVersionInfo", "getStatus", "getSourceStreams", "getSettings", "getYellowPageProtocols", "getYellowPages"]
     .forEach (p) ->
       p.process.then (val) ->
         e.sender.send p.message, val

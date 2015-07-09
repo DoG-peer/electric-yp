@@ -73,9 +73,9 @@ window.onload = ->
     root_dom.setState
       plugins: arg
 
-  ipc.on 'getSetting', (arg) ->
+  ipc.on 'getSettings', (arg) ->
     root_dom.setState
-      setting: arg
+      settings: arg
 
   ipc.on 'getSourceStreams', (arg) ->
     root_dom.setState

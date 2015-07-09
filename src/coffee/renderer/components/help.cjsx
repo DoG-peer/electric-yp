@@ -1,5 +1,7 @@
+Table = mui.Table
+
 Help = React.createClass
   render: ->
-    <div>たすけてー</div>
+    <div>へるぷ</div>
 
 module.exports = Help
