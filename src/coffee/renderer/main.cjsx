@@ -16,6 +16,14 @@ window.onload = ->
   # getHogeHogeで取得した値を
   # hogeHogeの値としてstateに格納
 
+  ipc.on 'isAlive', (arg) ->
+    if arg
+      ipc.send 'init'
+    else
+      setTimeout ->
+        ipc.send 'isAlive'
+      , 10000
+
   ipc.on 'getBroadcastHistory', (arg) ->
     root_dom.setState
       broadcastHistory: arg

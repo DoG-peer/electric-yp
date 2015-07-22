@@ -14,7 +14,7 @@ Help                    = require "./components/help.js"
 
 Root = React.createClass
   getInitialState: ->
-    ipc.send 'init'
+    ipc.send 'isAlive'
     {}
   childContextTypes:
     muiTheme: React.PropTypes.object
