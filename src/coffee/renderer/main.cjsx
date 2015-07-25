@@ -105,6 +105,9 @@ window.onload = ->
     root_dom.setState
       yellowPages: arg
 
+  ipc.on 'getYPChannels', (arg) ->
+    root_dom.setState
+      ypChannels: arg
   webview = document.querySelector 'webview'
   setFont = ->
     webview.insertCSS "*, .btn, ::-webkit-input-placeholder { font-family: Droid Sans Mono, Droid Sans Fallback;}"

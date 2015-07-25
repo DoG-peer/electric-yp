@@ -24,8 +24,9 @@ Root = React.createClass
     <Tabs>
       <Tab label="YP">
         <YP
-          yellowPages={this.state.yellowPages || []}
+          yellowPages={this.state.yellowPages}
           yellowPageProtocols={this.state.yellowPageProtocols || []}
+          ypChannels={this.state.ypChannels}
         />
       </Tab>
       <Tab label="リレー">
@@ -45,13 +46,12 @@ Root = React.createClass
         <Config settings={this.state.settings || {}} />
       </Tab>
       <Tab label="情報">
-        <h2>情報</h2>
         <VersionInfo
-          versionInfo={this.state.versionInfo || {}}
-          newVersions={this.state.newVersions || []}
+          versionInfo={this.state.versionInfo}
+          newVersions={this.state.newVersions}
         />
         <Status
-          status={this.state.status || {}}
+          status={this.state.status}
         />
         <Plugins plugins ={this.state.plugins || []} />
       </Tab>
