@@ -5,4 +5,6 @@ module.exports = {
     m = Math.floor((t/60) % 60)
     s = Math.floor(t % 60)
     "#{d}日#{h}時間#{m}分#{s}秒"
+  rand: (n) ->
+    Math.floor Math.random() * n
 }

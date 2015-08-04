@@ -10,7 +10,7 @@ body{
 }
 
 * {
-  font-family: Droid Sans Mono, Droid Sans Fallback;
+  font-family: Droid Sans Mono, Droid Sans Fallback, meiryo;
 }
 
 .webview-container{

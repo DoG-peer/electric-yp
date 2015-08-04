@@ -5,7 +5,7 @@ injectTapEventPlugin()
 
 mui   = require 'material-ui'
 ThemeManager = new mui.Styles.ThemeManager()
-ThemeManager.contentFontFamily = "Roboto, sans-serif, Droid Sans Mon, Droid Sans Fallback"
+ThemeManager.contentFontFamily = "Roboto, sans-serif, Droid Sans Mon, Droid Sans Fallback, meiryo"
 
 root_dom = null
 Root = require "./root.js"
@@ -99,12 +99,12 @@ window.onload = ->
 
   webview = document.querySelector 'webview'
   setFont = ->
-    webview.insertCSS "*, .btn, ::-webkit-input-placeholder { font-family: Droid Sans Mono, Droid Sans Fallback;}"
+    webview.insertCSS "*, .btn, ::-webkit-input-placeholder { font-family: Droid Sans Mono, Droid Sans Fallback, meiryo;}"
 
   webview.addEventListener('dom-ready', setFont)
 
   webview = document.querySelector 'webview'
   setFont = ->
-    webview.insertCSS "*, .btn, ::-webkit-input-placeholder { font-family: Droid Sans Mono, Droid Sans Fallback;}"
+    webview.insertCSS "*, .btn, ::-webkit-input-placeholder { font-family: Droid Sans Mono, Droid Sans Fallback, meiryo;}"
 
   webview.addEventListener('dom-ready', setFont)

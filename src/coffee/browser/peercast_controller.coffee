@@ -1,5 +1,5 @@
 http = require 'http'
-
+util = require '../util.js'
 class PeerCastController
   constructor: () ->
     @hostname = "localhost"
@@ -8,7 +8,7 @@ class PeerCastController
   emit: (message, params, callback) ->
     data = JSON.stringify
       jsonrpc: "2.0"
-      id: "0"
+      id: util.rand 10000
       method: message
     if typeof(parms) == 'function'
       callback = params
@@ -63,10 +63,18 @@ class PeerCastController
         headers:
           'Content-length': data.length
           'x-requested-with': "XMLHttpRequest"
+          'Content-Type': "application/json; charset=utf-8"
       req = http.request options, (res) ->
         res.setEncoding 'utf8'
         res.on 'data', (chunk) ->
-          resolve JSON.parse(chunk).result
+          try
+            resolve JSON.parse(chunk).result # windowsでgetBraodacastHistoryでエラー
+          catch error
+            console.log "----"
+            console.log error
+            console.log message
+            console.log chunk
+            console.log "----"
       req.on 'err', (e) ->
         reject e
       req.write data
