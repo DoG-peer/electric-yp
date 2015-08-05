@@ -3,16 +3,17 @@ BrowserWindow = require 'browser-window'
 PeCaCtrl      = require "./browser/peercast_controller"
 ipc           = require 'ipc'
 
-ipc.on 'hoge', (e, arg) ->
-  PeCaCtrl.emitAsync "getVersionInfo"
+# PeerCastStaionが起動していることを確認する
+ipc.on 'isAlive', (e, arg) ->
+  PeCaCtrl.emit "getVersionInfo"
     .then (val) ->
-      e.sender.send 'foo', [arg + 1, val.agentName]
+      e.sender.send 'isAlive', true
     .catch (err) ->
-      console.log err
+      e.sender.send 'isAlive', false #TODO: 別方式の方がいいかも
 
 ipc.on 'init', (e, arg) ->
   # TODO: きちんと書く
-  PeCaCtrl.emitPararell ["getBroadcastHistory", "getChannelConnections", "getChannels", "getContentReaders", "getListeners", "getLogSettings", "getNewVersions", "getPlugins", "getVersionInfo", "getStatus", "getSourceStreams", "getSettings", "getYellowPageProtocols", "getYellowPages"]
+  PeCaCtrl.emitPararell ["getBroadcastHistory", "getChannelConnections", "getChannels", "getContentReaders", "getListeners", "getLogSettings", "getNewVersions", "getPlugins", "getVersionInfo", "getStatus", "getSourceStreams", "getSettings", "getYellowPageProtocols", "getYellowPages", "getYPChannels"]
     .forEach (p) ->
       p.process.then (val) ->
         e.sender.send p.message, val

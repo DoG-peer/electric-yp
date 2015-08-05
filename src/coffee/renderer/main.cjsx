@@ -16,6 +16,14 @@ window.onload = ->
   # getHogeHogeで取得した値を
   # hogeHogeの値としてstateに格納
 
+  ipc.on 'isAlive', (arg) ->
+    if arg
+      ipc.send 'init'
+    else
+      setTimeout ->
+        ipc.send 'isAlive'
+      , 10000
+
   ipc.on 'getBroadcastHistory', (arg) ->
     root_dom.setState
       broadcastHistory: arg
@@ -97,11 +105,9 @@ window.onload = ->
     root_dom.setState
       yellowPages: arg
 
-  webview = document.querySelector 'webview'
-  setFont = ->
-    webview.insertCSS "*, .btn, ::-webkit-input-placeholder { font-family: Droid Sans Mono, Droid Sans Fallback, meiryo;}"
-
-  webview.addEventListener('dom-ready', setFont)
+  ipc.on 'getYPChannels', (arg) ->
+    root_dom.setState
+      ypChannels: arg
 
   webview = document.querySelector 'webview'
   setFont = ->

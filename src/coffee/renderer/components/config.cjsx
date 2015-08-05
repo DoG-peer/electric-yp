@@ -10,7 +10,9 @@ Config = React.createClass
       <p>チャンネルごとの直下最大リレー数{settings.maxDirectsPerChannel}</p>
       <p>最大上り帯域{settings.maxUpstreamRate}</p>
       <p>チャンネルごとの最大上り帯域{settings.maxUpstreamRatePerChannel}</p>
-      <p>チャンネル切断方式{settings.channelCleaner.mode}</p>
+      <p>チャンネル切断方式{
+        ["自動切断しない", "接続していないチャンネル", "視聴・リレーしていないチャンネル", "視聴していないチャンネル"][settings.channelCleaner.mode]
+      }</p>
       <p>チャンネル切断猶予時間{util.format_time(settings.channelCleaner.inactiveLimit / 1000)}</p>
     </div>
 
