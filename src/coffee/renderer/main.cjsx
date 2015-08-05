@@ -108,6 +108,7 @@ window.onload = ->
   ipc.on 'getYPChannels', (arg) ->
     root_dom.setState
       ypChannels: arg
+    console.log arg[0]
 
   webview = document.querySelector 'webview'
   setFont = ->
