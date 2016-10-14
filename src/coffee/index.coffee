@@ -1,7 +1,8 @@
-app           = require 'app'
-BrowserWindow = require 'browser-window'
+electron      = require 'electron'
+app           = electron.app
+BrowserWindow = electron.BrowserWindow
 PeCaCtrl      = require "./browser/peercast_controller"
-ipc           = require 'ipc'
+ipc           = electron.ipcMain
 
 # PeerCastStaionが起動していることを確認する
 ipc.on 'isAlive', (e, arg) ->
@@ -55,6 +56,6 @@ app.on 'ready', ->
   mainWindow = new BrowserWindow
     "width":  400
     "height": 300
-  mainWindow.loadUrl "file://#{__dirname}/renderer/index.html"
+  mainWindow.loadURL "file://#{__dirname}/renderer/index.html"
   mainWindow.on 'close', ->
     mainWindow = null
